@@ -1,9 +1,12 @@
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel, EmailStr
+from sqlalchemy.exc import IntegrityError
 
-from database import Base, engine
+import models  # ensures all models are registered with Base before create_all
+from database import AsyncSessionLocal, Base, engine
 
 
 @asynccontextmanager
@@ -33,3 +36,19 @@ async def root():
 @app.get("/health")
 async def health():
     return {"status": "ok"}
+
+
+class WaitlistRequest(BaseModel):
+    email: EmailStr
+
+
+@app.post("/waitlist")
+async def join_waitlist(body: WaitlistRequest):
+    async with AsyncSessionLocal() as session:
+        waitlist_entry = models.WaitList(email=body.email)
+        session.add(waitlist_entry)
+        try:
+            await session.commit()
+        except IntegrityError:
+            raise HTTPException(status_code=409, detail="Email already on waitlist")
+    return {"message": "Email added to waitlist"}

@@ -1,19 +1,34 @@
-import type { Metadata } from "next";
-import "./globals.css";
+import type { Metadata } from 'next'
+import { DM_Sans, DM_Serif_Display } from 'next/font/google'
+import '../styles/globals.css'
+
+const dmSans = DM_Sans({
+  subsets: ['latin'],
+  weight: ['300', '400', '500'],
+  variable: '--font-dm-sans',
+})
+
+const dmSerif = DM_Serif_Display({
+  subsets: ['latin'],
+  weight: ['400'],
+  style: ['normal', 'italic'],
+  variable: '--font-dm-serif',
+})
 
 export const metadata: Metadata = {
-  title: "Veriva",
-  description: "Veriva App",
-};
+  title: 'Veriva — Income Verified.',
+  description:
+    'Veriva connects directly to applicants bank accounts to generate tamper-proof income verification reports — no paystubs, no spreadsheets, no guessing.',
+}
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${dmSans.variable} ${dmSerif.variable}`}>
       <body>{children}</body>
     </html>
-  );
+  )
 }
