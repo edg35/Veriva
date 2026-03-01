@@ -1,0 +1,117 @@
+/* ── HERO (two-column) ── */
+.hero-wrap {
+  min-height: 100vh;
+  padding-top: 68px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 48px;
+  padding-right: 48px;
+  gap: 60px;
+}
+
+.hero-content {
+  padding: 60px 0;
+}
+
+/* Override old .hero sizing — hero-content now holds the text */
+.hero-content h1 {
+  font-size: clamp(40px, 5.5vw, 72px);
+}
+
+.hero-content .hero-stats {
+  margin-top: 56px;
+  gap: 36px;
+  padding-top: 36px;
+}
+
+.hero-content .stat-value {
+  font-size: 30px;
+}
+
+.hero-visual {
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 0.4s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-svg-wrap {
+  width: 100%;
+  max-width: 520px;
+}
+
+.hero-illustration {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+/* ── STEP ICONS (upgraded size) ── */
+.step-icon-lg {
+  width: 56px;
+  height: 56px;
+  margin-bottom: 24px;
+}
+
+/* ── LAPTOP SECTION ── */
+.laptop-section {
+  background: var(--ink);
+  padding: 100px 48px;
+  overflow: hidden;
+}
+
+.laptop-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.laptop-inner .section-label {
+  color: rgba(247, 246, 242, 0.4);
+}
+
+.laptop-inner h2 {
+  color: var(--paper);
+  margin: 0 auto 16px;
+  text-align: center;
+  max-width: 540px;
+}
+
+.laptop-inner h2 em {
+  font-style: italic;
+  color: #4ebe8a;
+}
+
+.laptop-inner > p {
+  color: rgba(247, 246, 242, 0.5);
+  font-size: 16px;
+  font-weight: 300;
+  max-width: 420px;
+  margin: 0 auto 64px;
+}
+
+.laptop-wrap {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+/* ── RESPONSIVE additions ── */
+@media (max-width: 900px) {
+  .hero-wrap {
+    grid-template-columns: 1fr;
+    padding-top: 88px;
+  }
+  .hero-visual { display: none; }
+}
+
+@media (max-width: 768px) {
+  .hero-wrap { padding-left: 24px; padding-right: 24px; }
+  .laptop-section { padding: 80px 24px; }
+}

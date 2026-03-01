@@ -2,6 +2,7 @@ import Footer from '@/components/landing/Footer'
 import ForWho from '@/components/landing/ForWho'
 import Hero from '@/components/landing/Hero'
 import HowItWorks from '@/components/landing/HowItWorks'
+import LaptopMockup from '@/components/landing/LaptopMockup'
 import Nav from '@/components/landing/Nav'
 import ScrollReveal from '@/components/landing/ScrollReveal'
 import TrustStrip from '@/components/landing/TrustStrip'
@@ -15,6 +16,8 @@ export default function HomePage() {
         <Hero />
         <div className="section-divider" />
         <HowItWorks />
+        <div className="section-divider" />
+        <LaptopMockup />
         <div className="section-divider" />
         <ForWho />
         <TrustStrip />
