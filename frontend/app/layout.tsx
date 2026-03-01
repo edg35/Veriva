@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { DM_Sans, DM_Serif_Display } from 'next/font/google'
-import '../styles/globals.css'
 import '../styles/globals-additions.css'
+import '../styles/globals.css'
 
 const dmSans = DM_Sans({
   subsets: ['latin'],
@@ -20,6 +20,13 @@ export const metadata: Metadata = {
   title: 'Veriva — Income Verified.',
   description:
     'Veriva connects directly to applicants bank accounts to generate tamper-proof income verification reports — no paystubs, no spreadsheets, no guessing.',
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: 'any' },           // fallback for older browsers
+    ],
+    apple: '/apple-touch-icon.png',                     // iOS home screen icon
+  },
 }
 
 export default function RootLayout({
