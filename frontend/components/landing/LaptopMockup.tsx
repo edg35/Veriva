@@ -99,7 +99,7 @@ export default function LaptopMockup() {
               <text x="443" y="302" fontFamily="DM Sans, sans-serif" fontSize="7" fill="#bbb" textAnchor="middle">Nov</text>
 
               {/* Recent verifications table */}
-              <rect x="285" y="326" width="280" height="96" rx="8" fill="white" stroke="#e0ddd6" strokeWidth="0.5" />
+              <rect x="285" y="326" width="280" height="114" rx="8" fill="white" stroke="#e0ddd6" strokeWidth="0.5" />
               <text x="300" y="344" fontFamily="DM Sans, sans-serif" fontSize="9.5" fontWeight="500" fill="#0e0e0f">Recent verifications</text>
               <line x1="300" y1="352" x2="550" y2="352" stroke="#f0efe9" strokeWidth="0.5" />
               <circle cx="310" cy="364" r="7" fill="#e8f2ec" />
