@@ -6,13 +6,11 @@ from pydantic import BaseModel, EmailStr
 from sqlalchemy.exc import IntegrityError
 
 import models  # ensures all models are registered with Base before create_all
-from database import AsyncSessionLocal, Base, engine
+from database import AsyncSessionLocal, engine
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
     yield
     await engine.dispose()
 
