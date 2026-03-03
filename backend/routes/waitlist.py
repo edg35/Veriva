@@ -11,6 +11,13 @@ router = APIRouter(prefix='/api/waitlist', tags=['waitlist'])
 class WaitlistRequest(BaseModel):
     email: EmailStr
 
+
+class WaitlistUpdateRequest(BaseModel):
+    product_updates: bool = True
+    launch_updates: bool = True
+    early_access_updates: bool = True
+    tips_and_tricks_updates: bool = True
+
 # TODO: Implement waitlist management with database operations
 
 
@@ -25,11 +32,11 @@ async def get_waitlist():
 async def get_waitlist_entry(email: EmailStr):
     return {"message": "To be implemented"}
 
-# TODO: Implement removal of waitlist entry by email
+# TODO: Implement retrieval of specific waitlist entry by token
 
 
-@router.delete("/remove/{email}", status_code=204)
-async def remove_from_waitlist(email: EmailStr):
+@router.get("/{token}")
+async def get_waitlist_entry_by_token(token: str):
     return {"message": "To be implemented"}
 
 
@@ -48,6 +55,6 @@ async def join_waitlist(body: WaitlistRequest):
 # TODO: Implement update of waitlist entry by email
 
 
-@router.put("/update/{email}", status_code=200)
-async def update_waitlist_email(email: EmailStr, body: WaitlistRequest):
+@router.put("/update/{token}", status_code=200)
+async def update_waitlist_email(token: str, body: WaitlistUpdateRequest):
     return {"message": "To be implemented"}
