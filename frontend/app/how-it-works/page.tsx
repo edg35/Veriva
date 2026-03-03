@@ -407,7 +407,7 @@ export default function HowItWorksPage() {
                 <h3>Is my renter&apos;s banking data safe?</h3>
                 <p>
                   Yes — and crucially, <strong>Veriva never touches your renter&apos;s raw banking
-                  credentials.</strong> The bank connection is handled entirely by Plaid, which uses
+                    credentials.</strong> The bank connection is handled entirely by Plaid, which uses
                   256-bit AES encryption and TLS 1.3. Plaid is used by over 8,000 apps including
                   Venmo, Coinbase, and major mortgage lenders.
                 </p>
@@ -428,7 +428,7 @@ export default function HowItWorksPage() {
                 <h3>What if my renter doesn&apos;t want to connect their bank?</h3>
                 <p>
                   That&apos;s their right — and it tells you something. <strong>An applicant who
-                  declines is not automatically a bad candidate</strong>, but it does mean you&apos;ll
+                    declines is not automatically a bad candidate</strong>, but it does mean you&apos;ll
                   need to fall back to traditional verification methods like paystubs and bank
                   statements, which carry fraud risk.
                 </p>
@@ -471,7 +471,7 @@ export default function HowItWorksPage() {
                 <p>
                   Yes. Verifying an applicant&apos;s ability to pay rent is a standard and legally
                   defensible part of the tenant screening process. <strong>Veriva is designed with
-                  FCRA-aware principles</strong> — applicants provide explicit consent before any
+                    FCRA-aware principles</strong> — applicants provide explicit consent before any
                   data is accessed, and the consent is logged with a timestamp.
                 </p>
                 <p style={{ marginTop: '12px' }}>
