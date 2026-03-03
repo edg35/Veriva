@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 const steps = [
   {
     num: '01',
@@ -63,6 +65,11 @@ export default function HowItWorks() {
               <div className="step-body">{step.body}</div>
             </div>
           ))}
+        </div>
+        <div style={{ marginTop: '40px', textAlign: 'center' }}>
+          <Link href="/how-it-works" className="btn btn-outline">
+            See the full walkthrough →
+          </Link>
         </div>
       </div>
     </section>

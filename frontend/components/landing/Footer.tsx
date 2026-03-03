@@ -16,6 +16,14 @@ export default function Footer() {
         Veriva
       </Link>
       <p>© {new Date().getFullYear()} Veriva. All rights reserved.</p>
+      <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
+        <Link href="/privacy" style={{ fontSize: '13px', color: 'var(--muted)', textDecoration: 'none' }}>
+          Privacy Policy
+        </Link>
+        <Link href="/terms" style={{ fontSize: '13px', color: 'var(--muted)', textDecoration: 'none' }}>
+          Terms of Service
+        </Link>
+      </div>
       <p style={{ fontSize: '12px', color: '#bbb' }}>
         Powered by Plaid · Built for real estate professionals
       </p>

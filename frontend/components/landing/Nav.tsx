@@ -17,7 +17,7 @@ export default function Nav() {
         Veriva
       </Link>
       <ul className="nav-links">
-        <li><a href="#how-it-works">How it works</a></li>
+        <li><Link href="/how-it-works">How it works</Link></li>
         <li><a href="#for-who">Who it&apos;s for</a></li>
         <li><a href="#waitlist">Get early access</a></li>
       </ul>
