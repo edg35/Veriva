@@ -4,6 +4,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 from database import Base
 
 
+# TODO: Implement waitlist setting for users
 class WaitList(Base):
     __tablename__ = "waitlist"
 
