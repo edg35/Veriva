@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { DM_Sans, DM_Serif_Display } from 'next/font/google'
-import '../../../styles/global-additions.css'
+import '../../../styles/globals-additions.css'
 import '../../../styles/globals.css'
 
 const dmSans = DM_Sans({
