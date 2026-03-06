@@ -4,7 +4,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 import models  # ensures all models are registered with Base before create_all
-from database import engine
+from core.config import settings
+from core.database import engine
 from routes import health_router, waitlist_router
 
 
@@ -18,7 +19,7 @@ app = FastAPI(title="Veriva API", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=settings.cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

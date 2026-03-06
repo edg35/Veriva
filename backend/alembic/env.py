@@ -10,7 +10,8 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 from alembic import context
 from sqlalchemy.ext.asyncio import create_async_engine
 
-from database import Base
+from core.config import settings
+from models.base import Base
 import models  # registers all models with Base.metadata
 
 config = context.config
@@ -21,16 +22,6 @@ if config.config_file_name is not None:
 target_metadata = Base.metadata
 
 
-def get_url() -> str:
-    url = os.getenv("DATABASE_URL", "")
-    if not url:
-        raise RuntimeError("DATABASE_URL environment variable is not set")
-    # Ensure the async driver prefix is present
-    if url.startswith("postgresql://"):
-        url = url.replace("postgresql://", "postgresql+asyncpg://", 1)
-    return url
-
-
 def do_run_migrations(connection):
     context.configure(connection=connection, target_metadata=target_metadata)
     with context.begin_transaction():
@@ -38,7 +29,7 @@ def do_run_migrations(connection):
 
 
 async def run_async_migrations() -> None:
-    connectable = create_async_engine(get_url())
+    connectable = create_async_engine(settings.database_url)
     async with connectable.connect() as connection:
         await connection.run_sync(do_run_migrations)
     await connectable.dispose()
@@ -50,7 +41,7 @@ def run_migrations_online() -> None:
 
 def run_migrations_offline() -> None:
     context.configure(
-        url=get_url(),
+        url=settings.database_url,
         target_metadata=target_metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
