@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { DM_Sans, DM_Serif_Display } from 'next/font/google'
+import '../styles/dashboard.css'
 import '../styles/globals-additions.css'
 import '../styles/globals.css'
 
@@ -36,7 +37,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${dmSans.variable} ${dmSerif.variable}`}>
-      <body>{children}</body>
+      <body suppressHydrationWarning>{children}</body>
     </html>
   )
 }
