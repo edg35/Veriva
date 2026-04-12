@@ -5,6 +5,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useAuth } from "@clerk/nextjs";
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
 function IconArrowLeft() {
@@ -73,8 +74,11 @@ function validate(name: string, email: string): Record<string, string> {
 }
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
+
 export default function NewRequestPage() {
     const router = useRouter();
+    const { getToken } = useAuth();
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -97,27 +101,23 @@ export default function NewRequestPage() {
         setLoading(true);
 
         try {
-            // TODO: uncomment when API is ready
-            // const res = await fetch("/api/v1/requests", {
-            //   method: "POST",
-            //   headers: { "Content-Type": "application/json" },
-            //   body: JSON.stringify({
-            //     renter_name: name.trim(),
-            //     renter_email: email.trim(),
-            //     ...(rent ? { monthly_rent: parseFloat(rent) } : {}),
-            //   }),
-            // });
-            // if (!res.ok) {
-            //   const data = await res.json();
-            //   throw new Error(data?.detail || "Something went wrong.");
-            // }
-
-            // Simulate network delay for mock
-            await new Promise((r) => setTimeout(r, 900));
-
-            // On success, redirect to dashboard
-            // A real implementation would pass a toast via a search param or global state:
-            // router.push("/dashboard?toast=sent");
+            const token = await getToken();
+            const res = await fetch(`${API_URL}/api/v1/requests`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    renter_name: name.trim(),
+                    renter_email: email.trim(),
+                    ...(rent ? { monthly_rent: parseFloat(rent) } : {}),
+                }),
+            });
+            if (!res.ok) {
+                const data = await res.json().catch(() => ({}));
+                throw new Error(data?.detail || "Something went wrong.");
+            }
             router.push("/dashboard");
         } catch (err: unknown) {
             setApiError(err instanceof Error ? err.message : "Something went wrong. Please try again.");

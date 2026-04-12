@@ -17,14 +17,16 @@ depends_on: Union[str, Sequence[str], None] = None
 
 
 def upgrade() -> None:
-    op.create_table(
-        "waitlist",
-        sa.Column("id", sa.Integer(), nullable=False),
-        sa.Column("email", sa.String(length=255), nullable=False),
-        sa.PrimaryKeyConstraint("id"),
-    )
-    op.create_index(op.f("ix_waitlist_id"), "waitlist", ["id"], unique=False)
-    op.create_index(op.f("ix_waitlist_email"), "waitlist", ["email"], unique=True)
+    bind = op.get_bind()
+    if not bind.dialect.has_table(bind, "waitlist"):
+        op.create_table(
+            "waitlist",
+            sa.Column("id", sa.Integer(), nullable=False),
+            sa.Column("email", sa.String(length=255), nullable=False),
+            sa.PrimaryKeyConstraint("id"),
+        )
+        op.create_index(op.f("ix_waitlist_id"), "waitlist", ["id"], unique=False)
+        op.create_index(op.f("ix_waitlist_email"), "waitlist", ["email"], unique=True)
 
 
 def downgrade() -> None:

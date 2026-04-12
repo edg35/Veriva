@@ -2,6 +2,7 @@
 // VER-20 — Landlord dashboard: requests list + empty state
 
 import Link from "next/link";
+import { auth } from "@clerk/nextjs/server";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 export type RequestStatus = "pending" | "completed" | "expired";
@@ -14,45 +15,24 @@ export interface VerificationRequest {
     created_at: string; // ISO string
 }
 
-// ─── Mock data (replace with real fetch once API is wired) ───────────────────
-// When integrating: fetch("/api/v1/requests", { headers: { Authorization: ... } })
-const MOCK_REQUESTS: VerificationRequest[] = [
-    {
-        id: "req_01",
-        renter_name: "Alex Johnson",
-        renter_email: "alex.j@gmail.com",
-        status: "completed",
-        created_at: "2026-03-12T10:22:00Z",
-    },
-    {
-        id: "req_02",
-        renter_name: "Maria Perez",
-        renter_email: "mperez@outlook.com",
-        status: "pending",
-        created_at: "2026-03-11T14:05:00Z",
-    },
-    {
-        id: "req_03",
-        renter_name: "Sam Richards",
-        renter_email: "sam.r@yahoo.com",
-        status: "pending",
-        created_at: "2026-03-11T09:41:00Z",
-    },
-    {
-        id: "req_04",
-        renter_name: "Priya Nair",
-        renter_email: "priya.n@gmail.com",
-        status: "completed",
-        created_at: "2026-03-09T16:30:00Z",
-    },
-    {
-        id: "req_05",
-        renter_name: "Darnell Brooks",
-        renter_email: "d.brooks@proton.me",
-        status: "expired",
-        created_at: "2026-02-28T11:00:00Z",
-    },
-];
+const API_URL = process.env.API_URL ?? "http://localhost:8000";
+
+async function fetchRequests(): Promise<VerificationRequest[]> {
+    try {
+        const { getToken } = await auth();
+        const token = await getToken();
+        if (!token) return [];
+
+        const res = await fetch(`${API_URL}/api/v1/requests`, {
+            headers: { Authorization: `Bearer ${token}` },
+            cache: "no-store",
+        });
+        if (!res.ok) return [];
+        return res.json();
+    } catch {
+        return [];
+    }
+}
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 function formatDate(iso: string): string {
@@ -198,10 +178,8 @@ function RequestCards({ requests }: { requests: VerificationRequest[] }) {
 }
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
-export default function DashboardPage() {
-    // TODO: replace mock data with real API fetch
-    // const requests = await fetch("/api/v1/requests").then(r => r.json());
-    const requests = MOCK_REQUESTS;
+export default async function DashboardPage() {
+    const requests = await fetchRequests();
 
     const stats = {
         total: requests.length,

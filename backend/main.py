@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import models  # ensures all models are registered with Base before create_all
 from core.config import settings
 from core.database import engine
-from routes import health_router, waitlist_router
+from routes import dashboard_router, health_router, waitlist_router
 
 
 @asynccontextmanager
@@ -27,3 +27,4 @@ app.add_middleware(
 
 app.include_router(health_router)
 app.include_router(waitlist_router)
+app.include_router(dashboard_router)

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { useUser, useClerk } from "@clerk/nextjs";
 
 // ─── Veriva logo mark (matches landing page exactly) ─────────────────────────
 function LogoMark() {
@@ -75,6 +76,40 @@ const NAV = [
     { href: "/dashboard/settings", label: "Settings", Icon: IconSettings },
 ];
 
+// ─── Sidebar user section ─────────────────────────────────────────────────────
+function SidebarUser() {
+    const { user } = useUser();
+    const { signOut } = useClerk();
+
+    const displayName = user?.fullName ?? user?.firstName ?? user?.primaryEmailAddress?.emailAddress ?? "—";
+    const initials = displayName
+        .split(" ")
+        .map((n: string) => n[0])
+        .join("")
+        .toUpperCase()
+        .slice(0, 2);
+
+    return (
+        <div className="dbl-footer">
+            <div className="dbl-user">
+                <div className="dbl-avatar">{initials}</div>
+                <div className="dbl-user-info">
+                    <span className="dbl-user-name">{displayName}</span>
+                    <span className="dbl-user-org">{user?.primaryEmailAddress?.emailAddress ?? ""}</span>
+                </div>
+            </div>
+            <button
+                className="dbl-logout"
+                title="Sign out"
+                aria-label="Sign out"
+                onClick={() => signOut({ redirectUrl: "/sign-in" })}
+            >
+                <IconLogout />
+            </button>
+        </div>
+    );
+}
+
 // ─── Sidebar content (shared between desktop + mobile drawer) ────────────────
 function SidebarContent({
     pathname,
@@ -117,23 +152,7 @@ function SidebarContent({
             </nav>
 
             {/* Footer / user */}
-            <div className="dbl-footer">
-                {/* 
-          Replace this placeholder with:
-            const { user } = useUser(); // from @clerk/nextjs
-          and render user.firstName + user.imageUrl
-        */}
-                <div className="dbl-user">
-                    <div className="dbl-avatar">JD</div>
-                    <div className="dbl-user-info">
-                        <span className="dbl-user-name">James Donovan</span>
-                        <span className="dbl-user-org">Donovan Properties</span>
-                    </div>
-                </div>
-                <button className="dbl-logout" title="Sign out" aria-label="Sign out">
-                    <IconLogout />
-                </button>
-            </div>
+            <SidebarUser />
         </>
     );
 }
