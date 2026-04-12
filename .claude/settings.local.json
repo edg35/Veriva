@@ -2,7 +2,21 @@
   "permissions": {
     "allow": [
       "Bash(cd /c/Users/ethan/documents/code/veriva && docker compose up --build backend 2>&1)",
-      "Bash(grep:*)"
+      "Bash(git push:*)",
+      "Bash(python3:*)",
+      "mcp__claude_ai_Supabase__apply_migration",
+      "mcp__claude_ai_Supabase__list_tables",
+      "Bash(git checkout:*)",
+      "Bash(git stash:*)",
+      "Bash(npm install:*)",
+      "Bash(ls /Users/ethangreen/code/projects/Veriva/frontend/.env*)",
+      "Bash(ls /Users/ethangreen/code/projects/Veriva/backend/.env*)",
+      "mcp__01b09574-c40c-4512-8a2a-adf6f7470a45__list_clerk_sdk_snippets",
+      "mcp__01b09574-c40c-4512-8a2a-adf6f7470a45__clerk_sdk_snippet",
+      "Bash(sort -t'|' -k2 -rn)",
+      "Bash(git add:*)",
+      "Bash(git commit -m ':*)",
+      "Bash(gh pr create --title 'feat: authenticated landlord dashboard \\(VER-13\\)' --base master --body ':*)"
     ]
   }
 }
